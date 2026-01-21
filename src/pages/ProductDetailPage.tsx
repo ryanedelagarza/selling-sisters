@@ -4,6 +4,7 @@ import { useOrder } from '../context/OrderContext';
 import { isBraceletProduct, isColoringPageProduct, isPortraitProduct } from '../types/product';
 import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
+import ColorDisplay from '../components/ui/ColorDisplay';
 import EmptyState from '../components/shared/EmptyState';
 import { ProductDetailSkeleton } from '../components/shared/SkeletonLoader';
 
@@ -112,17 +113,10 @@ export default function ProductDetailPage() {
               </div>
             )}
             <div>
-              <span className="text-sm font-medium text-gray-500">Available Colors:</span>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {product.bracelet.color_options.map((color) => (
-                  <span
-                    key={color}
-                    className="inline-flex items-center gap-1 px-2 py-1 bg-white rounded-full text-sm border"
-                  >
-                    {color}
-                  </span>
-                ))}
-              </div>
+              <ColorDisplay
+                colors={product.bracelet.color_options}
+                label="Available Colors:"
+              />
             </div>
             {product.bracelet.max_colors && (
               <p className="text-sm text-gray-500">

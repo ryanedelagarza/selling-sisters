@@ -9,6 +9,7 @@ export { default as Textarea } from './Textarea';
 export { default as Select } from './Select';
 export { default as Badge } from './Badge';
 export { default as ColorPicker } from './ColorPicker';
+export { default as ColorDisplay } from './ColorDisplay';
 export { default as FileUpload } from './FileUpload';
 export { default as LoadingSpinner } from './LoadingSpinner';
 export { default as CharacterCounter } from './CharacterCounter';
