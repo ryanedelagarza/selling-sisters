@@ -12,7 +12,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
 
     const variantStyles = {
       default: 'shadow-card',
-      interactive: 'shadow-card hover:shadow-card-hover cursor-pointer transition-shadow duration-200',
+      interactive: 'shadow-card hover:shadow-card-hover hover:-translate-y-0.5 active:translate-y-0 active:shadow-card cursor-pointer transition-all duration-200',
     };
 
     const paddingStyles = {

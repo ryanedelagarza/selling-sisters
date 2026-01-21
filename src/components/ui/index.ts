@@ -12,6 +12,7 @@ export { default as ColorPicker } from './ColorPicker';
 export { default as FileUpload } from './FileUpload';
 export { default as LoadingSpinner } from './LoadingSpinner';
 export { default as CharacterCounter } from './CharacterCounter';
+export { default as Toast } from './Toast';
 
 // Re-export types
 export type { ButtonProps } from './Button';
@@ -20,3 +21,4 @@ export type { InputProps } from './Input';
 export type { TextareaProps } from './Textarea';
 export type { SelectProps, SelectOption } from './Select';
 export type { BadgeProps } from './Badge';
+export type { ToastProps } from './Toast';

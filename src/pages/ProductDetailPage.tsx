@@ -184,16 +184,34 @@ export default function ProductDetailPage() {
         )}
       </div>
 
-      {/* CTA Button */}
-      {isSoldOut ? (
-        <Button disabled className="w-full">
-          Sold Out
-        </Button>
-      ) : (
-        <Button onClick={handleStartOrder} className="w-full">
-          Start Order
-        </Button>
-      )}
+      {/* CTA Button - Sticky on mobile */}
+      <div className="hidden md:block">
+        {isSoldOut ? (
+          <Button disabled className="w-full">
+            Sold Out
+          </Button>
+        ) : (
+          <Button onClick={handleStartOrder} className="w-full">
+            Start Order
+          </Button>
+        )}
+      </div>
+
+      {/* Spacer for fixed button on mobile */}
+      <div className="h-24 md:hidden" aria-hidden="true" />
+
+      {/* Fixed CTA on mobile */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 md:hidden safe-area-inset-bottom z-40">
+        {isSoldOut ? (
+          <Button disabled className="w-full">
+            Sold Out
+          </Button>
+        ) : (
+          <Button onClick={handleStartOrder} className="w-full">
+            Start Order
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

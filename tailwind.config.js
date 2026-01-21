@@ -116,6 +116,10 @@ export default {
       minWidth: {
         'touch': '48px',
       },
+      padding: {
+        'safe': 'env(safe-area-inset-bottom, 0)',
+        'safe-top': 'env(safe-area-inset-top, 0)',
+      },
     },
   },
   plugins: [],

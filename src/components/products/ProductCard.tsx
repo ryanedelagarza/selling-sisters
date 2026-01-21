@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { clsx } from 'clsx';
 import type { Product } from '../../types/product';
 import Card from '../ui/Card';
 import Badge from '../ui/Badge';
@@ -9,6 +11,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, basePath }: ProductCardProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const isSoldOut = product.status === 'sold_out';
 
   const cardContent = (
@@ -17,13 +21,36 @@ export default function ProductCard({ product, basePath }: ProductCardProps) {
       padding="none"
       className={isSoldOut ? 'opacity-75' : ''}
     >
-      {/* Image container */}
+      {/* Image container with loading state */}
       <div className="relative aspect-square overflow-hidden rounded-t-xl bg-gray-100">
+        {/* Loading placeholder */}
+        {!imageLoaded && !imageError && (
+          <div 
+            className="absolute inset-0 skeleton-shimmer" 
+            aria-hidden="true"
+          />
+        )}
+        
+        {/* Error placeholder */}
+        {imageError && (
+          <div 
+            className="absolute inset-0 flex items-center justify-center bg-gray-100"
+            aria-label="Image unavailable"
+          >
+            <span className="text-4xl" aria-hidden="true">🖼️</span>
+          </div>
+        )}
+        
         <img
           src={product.thumbnail_url}
           alt={product.title}
-          className="w-full h-full object-cover"
           loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+          onError={() => setImageError(true)}
+          className={clsx(
+            'w-full h-full object-cover transition-opacity duration-300',
+            imageLoaded && !imageError ? 'opacity-100' : 'opacity-0'
+          )}
         />
         
         {/* Sold out badge */}
@@ -47,13 +74,21 @@ export default function ProductCard({ product, basePath }: ProductCardProps) {
   );
 
   if (isSoldOut) {
-    return <div className="cursor-not-allowed">{cardContent}</div>;
+    return (
+      <div 
+        className="cursor-not-allowed" 
+        aria-label={`${product.title} - Sold Out`}
+      >
+        {cardContent}
+      </div>
+    );
   }
 
   return (
     <Link
       to={`${basePath}/${product.product_id}`}
       className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-xl"
+      aria-label={`View ${product.title}`}
     >
       {cardContent}
     </Link>

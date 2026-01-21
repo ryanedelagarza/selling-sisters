@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useEffect, ReactNode, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import type { Product } from '../types/product';
-import type { ContactInfo, OrderDetails, OrderStep } from '../types/order';
+import type { ContactInfo, PartialOrderDetails, OrderStep } from '../types/order';
 
 // Storage key for session persistence
 const STORAGE_KEY = 'selling-sisters-order';
@@ -9,7 +9,7 @@ const STORAGE_KEY = 'selling-sisters-order';
 // State interface
 interface OrderState {
   selectedProduct: Product | null;
-  orderDetails: Partial<OrderDetails>;
+  orderDetails: PartialOrderDetails;
   contactInfo: Partial<ContactInfo>;
   currentStep: OrderStep;
   isSubmitting: boolean;
@@ -20,7 +20,7 @@ interface OrderState {
 // Action types
 type OrderAction =
   | { type: 'SELECT_PRODUCT'; payload: Product }
-  | { type: 'UPDATE_ORDER_DETAILS'; payload: Partial<OrderDetails> }
+  | { type: 'UPDATE_ORDER_DETAILS'; payload: PartialOrderDetails }
   | { type: 'UPDATE_CONTACT_INFO'; payload: Partial<ContactInfo> }
   | { type: 'SET_STEP'; payload: OrderStep }
   | { type: 'SET_SUBMITTING'; payload: boolean }
@@ -109,7 +109,7 @@ function orderReducer(state: OrderState, action: OrderAction): OrderState {
 interface OrderContextValue {
   state: OrderState;
   selectProduct: (product: Product) => void;
-  updateOrderDetails: (details: Partial<OrderDetails>) => void;
+  updateOrderDetails: (details: PartialOrderDetails) => void;
   updateContactInfo: (info: Partial<ContactInfo>) => void;
   setStep: (step: OrderStep) => void;
   resetOrder: () => void;
@@ -171,7 +171,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'GENERATE_IDEMPOTENCY_KEY' });
   }, []);
 
-  const updateOrderDetails = useCallback((details: Partial<OrderDetails>) => {
+  const updateOrderDetails = useCallback((details: PartialOrderDetails) => {
     dispatch({ type: 'UPDATE_ORDER_DETAILS', payload: details });
   }, []);
 

@@ -33,9 +33,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     `;
 
     const variantStyles = {
-      primary: 'bg-primary text-white hover:bg-primary-hover active:scale-[0.98]',
-      secondary: 'bg-white text-primary border-2 border-primary hover:bg-primary-light active:scale-[0.98]',
-      ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 active:scale-[0.98]',
+      primary: 'bg-primary text-white hover:bg-primary-hover active:scale-[0.97] active:bg-primary-700 transition-all duration-150',
+      secondary: 'bg-white text-primary border-2 border-primary hover:bg-primary-light active:scale-[0.97] transition-all duration-150',
+      ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 active:scale-[0.97] transition-all duration-150',
     };
 
     const sizeStyles = {

@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { OrderProvider } from './context/OrderContext';
 import Layout from './components/layout/Layout';
 import ErrorBoundary from './components/shared/ErrorBoundary';
+import PageTransition from './components/shared/PageTransition';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -22,29 +23,31 @@ function App() {
     <ErrorBoundary>
       <OrderProvider>
         <Layout>
-          <Routes>
-            {/* Home */}
-            <Route path="/" element={<HomePage />} />
-            
-            {/* Product listings */}
-            <Route path="/bracelets" element={<BraceletsPage />} />
-            <Route path="/portraits" element={<PortraitsPage />} />
-            <Route path="/coloring-pages" element={<ColoringPagesPage />} />
-            
-            {/* Product details */}
-            <Route path="/bracelets/:productId" element={<ProductDetailPage />} />
-            <Route path="/portraits/:productId" element={<ProductDetailPage />} />
-            <Route path="/coloring-pages/:productId" element={<ProductDetailPage />} />
-            
-            {/* Order flow */}
-            <Route path="/order/customize" element={<CustomizePage />} />
-            <Route path="/order/contact" element={<ContactPage />} />
-            <Route path="/order/review" element={<ReviewPage />} />
-            <Route path="/order/confirmation" element={<ConfirmationPage />} />
-            
-            {/* 404 */}
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <PageTransition>
+            <Routes>
+              {/* Home */}
+              <Route path="/" element={<HomePage />} />
+              
+              {/* Product listings */}
+              <Route path="/bracelets" element={<BraceletsPage />} />
+              <Route path="/portraits" element={<PortraitsPage />} />
+              <Route path="/coloring-pages" element={<ColoringPagesPage />} />
+              
+              {/* Product details */}
+              <Route path="/bracelets/:productId" element={<ProductDetailPage />} />
+              <Route path="/portraits/:productId" element={<ProductDetailPage />} />
+              <Route path="/coloring-pages/:productId" element={<ProductDetailPage />} />
+              
+              {/* Order flow */}
+              <Route path="/order/customize" element={<CustomizePage />} />
+              <Route path="/order/contact" element={<ContactPage />} />
+              <Route path="/order/review" element={<ReviewPage />} />
+              <Route path="/order/confirmation" element={<ConfirmationPage />} />
+              
+              {/* 404 */}
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </PageTransition>
         </Layout>
       </OrderProvider>
     </ErrorBoundary>

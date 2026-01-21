@@ -59,6 +59,28 @@ export type OrderDetails =
   | PortraitOrderDetails;
 
 /**
+ * Partial order details - used during order building process
+ * This is a more permissive type that allows building up the order incrementally
+ */
+export type PartialOrderDetails = {
+  type?: 'bracelet' | 'coloring_page' | 'portrait';
+  product_id?: string;
+  product_title?: string;
+  // Bracelet fields
+  style?: BraceletStyle;
+  colors?: string[];
+  notes?: string;
+  // Coloring page fields
+  book_name?: string;
+  page_name?: string;
+  coloring_instructions?: string;
+  // Portrait fields
+  subject_description?: string;
+  reference_image_url?: string;
+  size?: string;
+};
+
+/**
  * Complete order structure
  */
 export interface Order {
@@ -85,15 +107,36 @@ export interface OrderSubmitResponse {
 
 /**
  * Type guards for order details
+ * These accept PartialOrderDetails for use during order building
  */
-export function isBraceletOrder(details: OrderDetails): details is BraceletOrderDetails {
+export function isBraceletOrder(details: PartialOrderDetails): details is BraceletOrderDetails {
   return details.type === 'bracelet';
 }
 
-export function isColoringPageOrder(details: OrderDetails): details is ColoringPageOrderDetails {
+export function isColoringPageOrder(details: PartialOrderDetails): details is ColoringPageOrderDetails {
   return details.type === 'coloring_page';
 }
 
-export function isPortraitOrder(details: OrderDetails): details is PortraitOrderDetails {
+export function isPortraitOrder(details: PartialOrderDetails): details is PortraitOrderDetails {
   return details.type === 'portrait';
+}
+
+/**
+ * Check if partial order details are complete enough to submit
+ */
+export function isCompleteOrderDetails(details: PartialOrderDetails): details is OrderDetails {
+  if (!details.type || !details.product_id || !details.product_title) {
+    return false;
+  }
+  
+  switch (details.type) {
+    case 'bracelet':
+      return !!details.style && Array.isArray(details.colors) && details.colors.length > 0;
+    case 'coloring_page':
+      return !!details.book_name && !!details.page_name && !!details.coloring_instructions;
+    case 'portrait':
+      return !!details.subject_description;
+    default:
+      return false;
+  }
 }

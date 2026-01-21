@@ -12,18 +12,21 @@ export function Skeleton({ className }: SkeletonProps) {
 }
 
 /**
- * Skeleton for product card
+ * Skeleton for product card - matches ProductCard dimensions
  */
 export function ProductCardSkeleton() {
   return (
-    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-      {/* Image skeleton */}
+    <div 
+      className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-card"
+      aria-hidden="true"
+    >
+      {/* Image skeleton - square aspect ratio */}
       <Skeleton className="aspect-square w-full" />
       
-      {/* Content skeleton */}
-      <div className="p-4">
-        <Skeleton className="h-5 w-3/4 mb-2" />
-        <Skeleton className="h-4 w-full mb-1" />
+      {/* Content skeleton - matches ProductCard padding */}
+      <div className="p-3 md:p-4 space-y-2">
+        <Skeleton className="h-5 w-3/4" />
+        <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-2/3" />
       </div>
     </div>

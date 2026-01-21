@@ -174,8 +174,13 @@ export default function FileUpload({
         )}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && handleClick()}
-        aria-label="Upload file"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleClick();
+          }
+        }}
+        aria-label={`${label}. Accepts JPG or PNG files up to ${maxSizeMB}MB`}
       >
         <input
           ref={fileInputRef}

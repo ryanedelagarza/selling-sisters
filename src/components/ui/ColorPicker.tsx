@@ -79,12 +79,13 @@ export default function ColorPicker({
               onClick={() => toggleColor(color)}
               disabled={isDisabled}
               className={clsx(
-                'relative w-10 h-10 rounded-full border-2 transition-all duration-200',
+                'relative w-10 h-10 rounded-full border-2',
+                'transition-all duration-200 ease-out',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
                 isSelected
                   ? 'border-primary ring-2 ring-primary ring-offset-2 scale-110'
-                  : 'border-gray-200 hover:border-gray-400',
-                isDisabled && 'opacity-40 cursor-not-allowed'
+                  : 'border-gray-200 hover:border-gray-400 hover:scale-105',
+                isDisabled && 'opacity-40 cursor-not-allowed hover:scale-100'
               )}
               style={{ backgroundColor: hex }}
               aria-pressed={isSelected}

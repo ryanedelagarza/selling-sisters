@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOrder } from '../../context/OrderContext';
 import { useOrderSubmit, isApiError } from '../../hooks';
-import { isBraceletOrder, isColoringPageOrder, isPortraitOrder } from '../../types/order';
+import { isBraceletOrder, isColoringPageOrder, isPortraitOrder, isCompleteOrderDetails } from '../../types/order';
 import type { ContactInfo, OrderDetails } from '../../types/order';
 import OrderStepper from '../../components/order/OrderStepper';
 import Button from '../../components/ui/Button';
@@ -42,13 +42,19 @@ export default function ReviewPage() {
       return;
     }
 
+    // Validate that order details are complete
+    if (!isCompleteOrderDetails(orderDetails)) {
+      setSubmitError('Some order details are missing. Please go back and fill in all required fields.');
+      return;
+    }
+
     setSubmitting(true);
     setSubmitError(null);
 
     try {
       await submitMutation.mutateAsync({
         contact: contactInfo as ContactInfo,
-        details: orderDetails as OrderDetails,
+        details: orderDetails, // Now properly typed as OrderDetails after isCompleteOrderDetails check
         idempotencyKey,
       });
 
