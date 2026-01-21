@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useOrder } from '../../context/OrderContext';
 import { useOrderSubmit, isApiError } from '../../hooks';
 import { isBraceletOrder, isColoringPageOrder, isPortraitOrder, isCompleteOrderDetails } from '../../types/order';
-import type { ContactInfo, OrderDetails } from '../../types/order';
+import type { ContactInfo } from '../../types/order';
 import OrderStepper from '../../components/order/OrderStepper';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';

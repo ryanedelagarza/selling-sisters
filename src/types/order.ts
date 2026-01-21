@@ -66,8 +66,8 @@ export type PartialOrderDetails = {
   type?: 'bracelet' | 'coloring_page' | 'portrait';
   product_id?: string;
   product_title?: string;
-  // Bracelet fields
-  style?: BraceletStyle;
+  // Bracelet fields (style is BraceletStyle for bracelets, string for portraits)
+  style?: BraceletStyle | string;
   colors?: string[];
   notes?: string;
   // Coloring page fields
